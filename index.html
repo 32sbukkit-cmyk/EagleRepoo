@@ -64,7 +64,6 @@
         <h1 class="text-[10vw] font-black uppercase leading-none italic" style="-webkit-text-stroke: 2px #fff; color: transparent;">Eagle Pride</h1>
         <p class="text-xl tracking-[15px] text-red-600 font-bold">MECHANICSBURG, PA</p>
         
-        <!-- UPDATED DESCRIPTION FOR SUBMISSION -->
         <div class="max-w-2xl mt-6 p-6 border-t border-white/10 bg-white/5 rounded-2xl">
             <h2 class="text-red-500 font-black uppercase text-sm tracking-widest mb-2">What this website is all about</h2>
             <p class="text-gray-400 text-sm leading-relaxed">
@@ -113,7 +112,6 @@
         <span class="close" onclick="closeTabs()">×</span>
         <h2 class="text-center text-5xl font-black mb-16 text-red-600">EAGLE ARCADE</h2>
         <div class="flex flex-wrap justify-center gap-10">
-            <!-- GAME 1 -->
             <div class="game-window">
                 <div class="p-4 bg-red-600 text-center font-black">GAME 1: CATCHER</div>
                 <div class="p-2 text-center">
@@ -125,7 +123,6 @@
                 </div>
                 <button onclick="startCatcher()" class="w-full py-4 bg-white text-black font-black uppercase">Start Catching</button>
             </div>
-            <!-- GAME 2 -->
             <div class="game-window">
                 <div class="p-4 bg-red-600 text-center font-black">GAME 2: REACT</div>
                 <div class="p-2 text-center">
@@ -136,7 +133,6 @@
                 <p id="react-score" class="text-center mt-8 text-3xl font-black">0</p>
                 <button onclick="startReact()" class="w-full py-4 bg-white text-black font-black uppercase mt-12">Start React</button>
             </div>
-            <!-- GAME 3 -->
             <div class="game-window">
                 <div class="p-4 bg-red-600 text-center font-black">GAME 3: NEON REFLEX</div>
                 <div class="p-2 text-center">
@@ -155,24 +151,18 @@
     <!-- TAB: TRIVIA -->
     <div id="trivia-tab" class="panel">
         <span class="close" onclick="closeTabs()">×</span>
-        <h2 class="text-center text-5xl font-black mb-16 text-red-600">TRIVIA CHALLENGE</h2>
-        <div id="quiz-container" class="max-w-2xl mx-auto glass p-10 bg-white/5 rounded-3xl border border-white/10">
-            <p id="q-text" class="text-2xl font-bold mb-10 text-center italic"></p>
-            <div id="q-options" class="flex flex-col gap-4"></div>
-            <div id="result-container">
-    
-    <p id="score-text">Quiz</p><!-- Button to get results -->
-    <button id="submit">Get Results</button>
-
-    <!-- Container to display results -->
-    <div id="results">
-        <h2>Your Score:</h2>
-        <p id="score-display"></p>
-    </div>
-
-    <script src="script.js"></script>
-
-</div>
+        <h2 class="text-center text-5xl font-black mb-16 text-red-600 uppercase">Trivia Challenge</h2>
+        <div id="quiz-container" class="max-w-2xl mx-auto glass p-10 bg-white/5 rounded-3xl border border-white/10 shadow-2xl">
+            <div id="quiz-ui">
+                <p id="q-text" class="text-2xl font-bold mb-10 text-center italic"></p>
+                <div id="q-options" class="flex flex-col gap-4"></div>
+            </div>
+            <div id="result-ui" class="hidden text-center">
+                <h3 class="text-4xl font-black mb-4 uppercase">Mission Complete</h3>
+                <p class="text-xl mb-2 text-gray-400">Final Grade:</p>
+                <div id="final-score" class="text-7xl font-black text-red-600 mb-8">0 / 0</div>
+                <button onclick="startTrivia()" class="bg-red-600 px-10 py-4 rounded-full font-black uppercase hover:scale-110 transition">Restart Protocol</button>
+            </div>
         </div>
     </div>
 
@@ -182,7 +172,7 @@
             <span class="close" onclick="closeTabs()">×</span>
             <h2 class="text-4xl font-black mb-4 uppercase italic">2026 Yearbooks</h2>
             <p class="text-red-600 text-5xl font-black mb-6">$45.00</p>
-            <p class="text-gray-400 mb-10 italic text-sm italic">Limited quantities remaining!</p>
+            <p class="text-gray-400 mb-10 text-sm italic">Limited quantities remaining!</p>
             <a href="https://www.jostens.com" target="_blank" class="bg-red-600 px-10 py-4 rounded-full font-black uppercase text-sm">Official Jostens Link</a>
         </div>
     </div>
@@ -194,7 +184,7 @@
             startTrivia();
         };
 
-        function openTab(id) { document.getElementById(id).classList.add('panel-active'); }
+        function openTab(id) { document.getElementById(id).classList.add('panel-active'); if(id === 'trivia-tab') startTrivia(); }
         function closeTabs() { document.querySelectorAll('.panel').forEach(p => p.classList.remove('panel-active')); }
 
         function populateClubs() {
@@ -216,6 +206,7 @@
                 {n: "Intramurals", d: "After-school sports."}
             ];
             const grid = document.getElementById('club-list');
+            grid.innerHTML = "";
             clubs.forEach(c => {
                 grid.innerHTML += `<div class="card" onclick="alert('${c.d}')"><h3>🦅 ${c.n}</h3><p class="mt-2 text-xs text-gray-400 italic">Click for info.</p></div>`;
             });
@@ -226,102 +217,112 @@
         let score1 = 0, score2 = 0, score3 = 0;
         let pX = 145;
 
-        // CATCHER
         window.onkeydown = (e) => {
             if(e.key === "ArrowLeft") pX = Math.max(0, pX-25);
             if(e.key === "ArrowRight") pX = Math.min(290, pX+25);
             document.getElementById('paddle').style.left = pX + "px";
         };
-        function startCatcher() {
-            if(active1) return;
-            active1 = true; score1 = 0;
-            let time = parseInt(document.getElementById('time-1').value);
-            runTimer(time, 'timer-1', () => { active1 = false; alert("CATCHER OVER! Score: " + score1); });
-            spawn();
-        }
-        function spawn() {
-            if(!active1) return;
-            const item = document.createElement('div');
-            item.className = 'item';
-            item.innerText = Math.random() > 0.8 ? "💣" : "🦅";
-            item.style.left = Math.random() * 320 + "px";
-            item.style.top = "0px";
-            document.getElementById('catcher-area').appendChild(item);
-            let fall = setInterval(() => {
-                let t = parseInt(item.style.top);
-                item.style.top = (t + 5) + "px";
-                if(t > 300) {
-                    let l = parseInt(item.style.left);
-                    if(l > pX - 20 && l < pX + 60) {
-                        if(item.innerText === "💣") { score1 = Math.max(0, score1 - 5); }
-                        else score1++;
-                    }
-                    clearInterval(fall); item.remove();
-                }
-                if(!active1) { clearInterval(fall); item.remove(); }
-            }, 30);
-            setTimeout(spawn, 800);
+
+        function runTimer(sec, id, cb) {
+            let t = sec;
+            let itv = setInterval(() => {
+                t--;
+                document.getElementById(id).innerText = t + "s";
+                if(t <= 0) { clearInterval(itv); cb(); }
+            }, 1000);
         }
 
-        // REACT
+        function startCatcher() {
+            if(active1) return; active1 = true; score1 = 0;
+            runTimer(parseInt(document.getElementById('time-1').value), 'timer-1', () => { active1 = false; alert("Score: " + score1); });
+            const spawner = setInterval(() => {
+                if(!active1) { clearInterval(spawner); return; }
+                const item = document.createElement('div');
+                item.className = 'item';
+                item.innerText = Math.random() > 0.8 ? "💣" : "🦅";
+                item.style.left = Math.random() * 320 + "px";
+                item.style.top = "0px";
+                document.getElementById('catcher-area').appendChild(item);
+                let fall = setInterval(() => {
+                    let top = parseInt(item.style.top);
+                    item.style.top = (top + 5) + "px";
+                    if(top > 300) {
+                        let l = parseInt(item.style.left);
+                        if(l > pX - 20 && l < pX + 60) {
+                            if(item.innerText === "🦅") score1++;
+                            else score1 = Math.max(0, score1-5);
+                            item.remove(); clearInterval(fall);
+                        }
+                    }
+                    if(top > 350) { item.remove(); clearInterval(fall); }
+                }, 30);
+            }, 800);
+        }
+
         function startReact() {
-            if(active2) return;
-            active2 = true; score2 = 0;
+            if(active2) return; active2 = true; score2 = 0;
             document.getElementById('react-score').innerText = "0";
-            let time = parseInt(document.getElementById('time-2').value);
-            runTimer(time, 'timer-2', () => { active2 = false; alert("REACT OVER! Score: " + score2); });
+            runTimer(parseInt(document.getElementById('time-2').value), 'timer-2', () => { active2 = false; alert("Score: " + score2); });
         }
         function hitReact() { if(active2) { score2++; document.getElementById('react-score').innerText = score2; } }
 
-        // REFLEX
         function startReflex() {
-            if(active3) return;
-            active3 = true; score3 = 0;
+            if(active3) return; active3 = true; score3 = 0;
             document.getElementById('reflex-score').innerText = "0";
-            let time = parseInt(document.getElementById('time-3').value);
-            runTimer(time, 'timer-3', () => { active3 = false; document.getElementById('reflex-target').style.display = 'none'; alert("REFLEX OVER! Score: " + score3); });
+            runTimer(parseInt(document.getElementById('time-3').value), 'timer-3', () => { active3 = false; document.getElementById('reflex-target').style.display='none'; alert("Score: " + score3); });
             moveReflex();
         }
         function moveReflex() {
             if(!active3) return;
-            const t = document.getElementById('reflex-target');
-            t.style.display = 'block';
-            t.style.left = Math.random() * 280 + "px";
-            t.style.top = Math.random() * 250 + "px";
+            const target = document.getElementById('reflex-target');
+            target.style.display = 'block';
+            target.style.left = Math.random() * 300 + "px";
+            target.style.top = Math.random() * 270 + "px";
         }
         function hitReflex() { if(active3) { score3++; document.getElementById('reflex-score').innerText = score3; moveReflex(); } }
 
-        // TIMER HELPER
-        function runTimer(seconds, displayId, callback) {
-            let s = seconds;
-            let display = document.getElementById(displayId);
-            let iv = setInterval(() => {
-                s--;
-                display.innerText = s + "s";
-                if(s <= 0) { clearInterval(iv); display.innerText = "--s"; callback(); }
-            }, 1000);
+        // --- UPDATED TRIVIA LOGIC ---
+        const triviaData = [
+            { q: "What is the MVMS mascot?", a: ["Eagle", "Hawk", "Falcon", "Owl"], c: 0 },
+            { q: "Where is Mountain View Middle School?", a: ["Enola", "Mechanicsburg", "Carlisle", "Camp Hill"], c: 1 },
+            { q: "What color is the 'ELITE EAGLE' portal theme?", a: ["Blue", "Green", "Red", "Purple"], c: 2 },
+            { q: "Which club is doing Mary Poppins Jr?", a: ["TSA", "Art Club", "MV Players", "Coding Club"], c: 2 }
+        ];
+
+        let currentQ = 0;
+        let tScore = 0;
+
+        function startTrivia() {
+            currentQ = 0; tScore = 0;
+            document.getElementById('quiz-ui').classList.remove('hidden');
+            document.getElementById('result-ui').classList.add('hidden');
+            showQ();
         }
 
-        // TRIVIA
-        const triviaData = [
-            { q: "Mascot of MVMS?", a: ["Hawk", "Eagle", "Falcon"], c: 1 },
-            { q: "Principal?", a: ["Dr. Snell", "Mr. Pierce", "Mrs. Knerr"], c: 0 },
-            { q: "Yearbook School Code?", a: ["137269m", "123456", "999999"], c: 0 },
-            { q: "2026 Spring Musical?", a: ["Mary Poppins Jr", "Frozen", "Annie"], c: 0 }
-        ];
-        let currentQ = 0;
-        function startTrivia() {
+        function showQ() {
             const data = triviaData[currentQ];
             document.getElementById('q-text').innerText = data.q;
-            const options = document.getElementById('q-options');
-            options.innerHTML = "";
-            data.a.forEach((opt, idx) => {
-                const btn = document.createElement('button');
-                btn.className = "trivia-btn text-sm font-bold";
-                btn.innerText = opt;
-                btn.onclick = () => { currentQ = (currentQ + 1) % triviaData.length; startTrivia(); };
-                options.appendChild(btn);
+            const opts = document.getElementById('q-options');
+            opts.innerHTML = "";
+            data.a.forEach((ans, i) => {
+                const b = document.createElement('button');
+                b.className = "trivia-btn font-bold border-l-4 border-red-600 bg-white/5 p-4 rounded-xl text-left hover:bg-red-600 transition";
+                b.innerText = ans;
+                b.onclick = () => {
+                    if(i === data.c) tScore++;
+                    currentQ++;
+                    if(currentQ < triviaData.length) showQ();
+                    else showTResults();
+                };
+                opts.appendChild(b);
             });
+        }
+
+        function showTResults() {
+            document.getElementById('quiz-ui').classList.add('hidden');
+            const res = document.getElementById('result-ui');
+            res.classList.remove('hidden');
+            document.getElementById('final-score').innerText = `${tScore} / ${triviaData.length}`;
         }
     </script>
 </body>
