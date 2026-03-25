@@ -47,7 +47,7 @@
     <div id="entry-screen">
         <div class="scan-bar"></div>
         <h1 class="text-7xl font-black italic tracking-tighter" style="text-shadow: 0 0 20px var(--red);">MVMS<span class="text-red-600">.OS</span></h1>
-        <p class="mt-4 text-gray-500 tracking-[10px] uppercase font-bold">Verifying Eagle Identity...</p>
+        <p class="mt-4 text-gray-500 tracking-[10px] uppercase font-bold">Loading...</p>
     </div>
 
     <!-- 2. NAVBAR -->
@@ -68,7 +68,7 @@
         <div class="max-w-2xl mt-6 p-6 border-t border-white/10 bg-white/5 rounded-2xl">
             <h2 class="text-red-500 font-black uppercase text-sm tracking-widest mb-2">What this website is all about</h2>
             <p class="text-gray-400 text-sm leading-relaxed">
-                This website i made has a bunch of cool stuff like <strong>arcade games</strong> I coded with HTML, CSS, JavaScript, a <strong>trivia game</strong> to test what you know about Mountain View, a <strong>Learning Hub</strong> with links to help us with our homework and the <strong> 15+ clubs </strong> tab to show almost all the clubs in MV, and the <strong> staff</strong> tab to show our teacher/staff in MV. I wanted it to look really high-tech and "cool" for my friends and teachers to use. I hope you like all the different tabs and the games I put in!
+                This website has a bunch of cool stuff like <strong>arcade games</strong> coded with HTML, CSS, JavaScript, a <strong>trivia game</strong> to test what you know about Mountain View, a <strong>Learning Hub</strong> with links to help us with our homework and the <strong> 15+ clubs </strong> tab to show almost all the clubs in MV, and the <strong> staff</strong> tab to show our teacher/staff in MV. It looks really high-tech and "cool" for my friends and teachers to use. 
             </p>
         </div>
 
@@ -160,8 +160,18 @@
             <p id="q-text" class="text-2xl font-bold mb-10 text-center italic"></p>
             <div id="q-options" class="flex flex-col gap-4"></div>
             <div id="result-container">
-    <h3>Your Result:</h3>
-    <p id="score-text">Take the quiz to see your results!</p>
+    
+    <p id="score-text">Quiz</p><!-- Button to get results -->
+    <button id="submit">Get Results</button>
+
+    <!-- Container to display results -->
+    <div id="results">
+        <h2>Your Score:</h2>
+        <p id="score-display"></p>
+    </div>
+
+    <script src="script.js"></script>
+
 </div>
         </div>
     </div>
