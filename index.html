@@ -282,12 +282,18 @@
         function hitReflex() { if(active3) { score3++; document.getElementById('reflex-score').innerText = score3; moveReflex(); } }
 
         // --- UPDATED TRIVIA LOGIC ---
-        const triviaData = [
-            { q: "What is the MVMS mascot?", a: ["Eagle", "Hawk", "Falcon", "Owl"], c: 0 },
-            { q: "Where is Mountain View Middle School?", a: ["Enola", "Mechanicsburg", "Carlisle", "Camp Hill"], c: 1 },
-            { q: "What color is the 'ELITE EAGLE' portal theme?", a: ["Blue", "Green", "Red", "Purple"], c: 2 },
-            { q: "Which club is doing Mary Poppins Jr?", a: ["TSA", "Art Club", "MV Players", "Coding Club"], c: 2 }
-        ];
+const triviaData = [
+    { q: "What is the MVMS mascot?", a: ["Eagle", "Hawk", "Falcon", "Owl"], c: 0 },
+    { q: "Where is Mountain View Middle School?", a: ["Enola", "Mechanicsburg", "Carlisle", "Camp Hill"], c: 1 },
+    { q: "What color is the 'ELITE EAGLE' portal theme?", a: ["Blue", "Green", "Red", "Purple"], c: 2 },
+    { q: "Which club is doing Mary Poppins Jr?", a: ["TSA", "Art Club", "MV Players", "Coding Club"], c: 2 },
+    { q: "Which arcade game uses a paddle to catch items?", a: ["Neon Reflex", "Catcher", "React", "Eagle Fly"], c: 1 },
+    { q: "What is the name of the MVMS Principal?", a: ["Dr. Snell", "Mrs. Knerr", "Mr. Pierce", "Dr. Miller"], c: 0 },
+    { q: "How many clubs are listed in the Directory?", a: ["5+", "10+", "15+", "20+"], c: 2 },
+    { q: "What item in the Catcher game subtracts 5 points?", a: ["Eagle", "Star", "Bomb", "Rock"], c: 2 },
+    { q: "What is the price of the 2026 Yearbook?", a: ["$35.00", "$40.00", "$45.00", "$50.00"], c: 2 },
+    { q: "Which Learning Hub link helps with Map Quizzes?", a: ["Khan Academy", "Seterra", "NASA", "CommonLit"], c: 1 }
+];
 
         let currentQ = 0;
         let tScore = 0;
